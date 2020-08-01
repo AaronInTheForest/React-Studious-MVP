@@ -11,3 +11,10 @@ export const removeTerm = (value) => {
         payload: value
     };
 }
+
+export const addQuestion = (value) => {
+    return{
+        type: 'ADDQUESTION',
+        payload: value
+    }
+}
