@@ -28,7 +28,7 @@ function Survey() {
         <div>
             <h2>Survey Component</h2>
             <form onSubmit= {(event)=>handleSubmit(event)}>
-                <input id="termInput" type="text" placeholder={randomPlaceholder}/>
+                <input id="termInput" type="text" placeholder={randomPlaceholder.value}/>
                 <button type="submit">+</button>
             </form>
             <ul>

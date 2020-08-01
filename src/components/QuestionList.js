@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useSelector, useDispatch } from 'react-redux';
 import { addQuestion } from '../actions';
 
-function Question() {
+function QuestionList() {
     const dispatch = useDispatch();
     const termsList = useSelector( state => state.terms);
     const bloomsList = useSelector( state => state.blooms); 
@@ -18,11 +18,22 @@ function Question() {
             for(const stem of bloom.stems){
                 for(const term of termsList){
                     let alternateTerm = termsList[Math.floor(Math.random() * termsList.length)];
+                    // let question = {id: uuidv4()};
+                    // console.log('stem.value')
+                    // console.log(stem.value)
                     let question = {
                         id: uuidv4(),
+
+                        termId: term.id,
+                        alternateTermId: stem.value.includes('^') ? alternateTerm.id : null,
+                        value: stem.value.replace('*', term.value).replace('^', alternateTerm.value),
+
+                        bloomId: bloom.id,
                         level: bloom.level,
                         label: bloom.label,
-                        value: stem.replace('*', term.value).replace('^', alternateTerm.value),
+                        
+                        isEdited: false,
+                        isSelected: false,
                         answers: [],
                     }
                     result.push(question);
@@ -71,4 +82,4 @@ function Question() {
     )
 }
 
-export default Question;
+export default QuestionList;
