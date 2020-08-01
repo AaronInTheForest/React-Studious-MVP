@@ -1,9 +1,11 @@
 import React from 'react';
+import Survey from './Survey'
 
 function App() {
   return (
-    <div className="App">
-      <h1>Hello</h1>
+    <div>
+      <h1>Studious React</h1>
+      <Survey />
     </div>
   );
 }
