@@ -8,7 +8,7 @@ const filterReducer = (state = {
 }, action) => {
     switch (action.type) {
         case 'UPDATEFILTER':
-            return action.payload
+            return Object.assign({}, action.payload)
         default:
             return state;//must return the state or else Chrome Dev Tools fails to find the store...
     };

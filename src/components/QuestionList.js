@@ -116,7 +116,7 @@ function QuestionList() {
     function handleQuestionChange(event){
         event.preventDefault();
         let value = event.target.value.trim();
-        // dispatch(addQuestion(value));
+        //dispatch(addQuestion(value));
     }
     
 
