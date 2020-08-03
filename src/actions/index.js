@@ -18,3 +18,10 @@ export const addQuestion = (value) => {
         payload: value
     }
 }
+
+export const updateFilter = (value) => {
+    return{
+        type: 'UPDATEFILTER',
+        payload: value
+    }
+}

@@ -1,19 +1,18 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useSelector, useDispatch } from 'react-redux';
-import { addQuestion } from '../actions';
+import { addQuestion, updateFilter } from '../actions';
 
 function QuestionList() {
     const dispatch = useDispatch();
     const termsList = useSelector( state => state.terms);
-    const bloomsList = useSelector( state => state.blooms); 
-    
+    const bloomsList = useSelector( state => state.blooms);
+    const filter = useSelector( state => state.filter);
+    const stemsList = listStems();
     const questionsList = createQuestions();
     dispatch(addQuestion(questionsList));
 
-    let filter = 'Display all';
-    let termFilter = 'Display all';
-    let bloomFilter = 'Display all';
+      
     const filteredQuestionsList = filterQuestions();
 
 
@@ -46,43 +45,72 @@ function QuestionList() {
         return result;
     }
 
+    function listStems(){
+        let result = [];
+        if(filter.byBloom === ''){
+            for( const bloom of bloomsList){
+                for( const stem of bloom.stems){
+                    result.push(stem);
+                }
+            }
+        }else{
+            let bloom = bloomsList.filter(bloom => bloom.id === filter.byBloom)[0];
+            console.log('filter bloom')
+            for( const stem of bloom.stems){
+                result.push(stem);
+            }
+        }
+        return result;//THIS IS WORKING I CAN'T GET LIST TO UPDATE
+    }
+
     function filterQuestions(){
-        switch(filter){
-            case 'Term':
+        console.log('filterQuestions()')
+    }
+
+
+    function handleSelectedSelectorChange(event){
+        switch(event.target.value){
+            case 'Display all':
+                filter.setState({isSelected: null});
                 break;
-            case 'Bloom Level':
+            case 'Display selected':
+                filter.setState({isSelected: true});
                 break;
-            case 'Question stem':
-                break;
-            case 'Dispay all':
+            case 'Display unselected':
+                filter.setState({isSelected: false});
                 break;
             default:
-                console.log('html element filterSelector passed invalid value to handleFilterSelectorChange');
+                filter.setState({isSelected: null});
                 break;
         }
-    }
-    // function selectByCountTermLevel(count, term, level) {
-    //     let filteredQuestionsList = questionsList.filter(question => question.level === level && question.term === term);
-    //     let result = [];
-    //     do{
-    //         let randomQuestion = filteredQuestionsList[Math.floor(Math.random() * filteredQuestionsList.length)];
-    //         if(!result.includes(randomQuestion)){
-    //             result.push(randomQuestion)
-    //         }
-
-    //     }while(result.length < count);
-    //     console.log(result);
-    //     return result;
-    // }
-    function handleFilterSelectorChange(event){
-        filter = event.target.value;
-        
+        dispatch(updateFilter(filter));
     }
     function handleTermSelectorChange(event){
-        termFilter = event.target.value;        
+        if(event.target.value === 'Display all'){
+            filter.byTerm = '';
+        }else{
+            let term = termsList.filter(term => term.value === event.target.value)[0];
+            filter.byTerm = term.id;
+        }        
+        dispatch(updateFilter(filter));
     }
     function handleBloomSelectorChange(event){
-        bloomFilter = event.target.value;        
+        if(event.target.value === 'Display all'){
+            filter.byBloom = '';
+        }else{
+            let bloom = bloomsList.filter(bloom => bloom.label === event.target.value)[0];
+            filter.byBloom = bloom.id;
+        }        
+        dispatch(updateFilter(filter));
+    }
+    function handleStemSelectorChange(event){
+        if(event.target.value === 'Display all'){
+            filter.byStem = '';
+        }else{
+            let stem = stemsList.filter(stem => stem.value === event.target.value)[0];
+            filter.byStem = stem.id;
+        }        
+        dispatch(updateFilter(filter));
     }
 
     function handleQuestionChange(event){
@@ -97,19 +125,24 @@ function QuestionList() {
             <h2>Question</h2>
             <h3>Knowledge</h3>
             <label htmlFor="selectedSelector">Show:</label>
-            <select id="selectedSelector" onChange={(event)=>handleFilterSelectorChange(event)} defaultValue={filter}>
+            <select id="selectedSelector" onChange={(event)=>handleSelectedSelectorChange(event)} defaultValue='Display all'>
                 <option>Display all</option>
                 <option>Display selected</option>
                 <option>Display unselected</option>
             </select>
             <label htmlFor="termSelector">Term:</label>
-            <select id="termSelector" onChange={(event)=>handleTermSelectorChange(event)} defaultValue={termFilter}>
-                {termsList.map((term) => (<option key={term.id}>{term.value}</option>))}
+            <select id="termSelector" onChange={(event)=>handleTermSelectorChange(event)} defaultValue='Display all'>
+                {termsList.map((term) => (<option key={term.id} id={term.id}>{term.value}</option>))}
                 <option>Display all</option>
             </select>
             <label htmlFor="bloomSelector">Bloom level:</label>
-            <select id="bloomSelector" onChange={(event)=>handleBloomSelectorChange(event)} defaultValue={bloomFilter}>
-    {bloomsList.map((bloom) => (<option key={bloom.id}>{bloom.label} (level {bloom.level}):</option>))}
+            <select id="bloomSelector" onChange={(event)=>handleBloomSelectorChange(event)} defaultValue='Display all'>
+                {bloomsList.map((bloom) => (<option key={bloom.id}>{bloom.label}</option>))}
+                <option>Display all</option>
+            </select>
+            <label htmlFor="stemSelector">Stem:</label>
+            <select id="stemSelector" onChange={(event)=>handleStemSelectorChange(event)} defaultValue='Display all'>
+                {stemsList.map((stem) => (<option key={stem.id}>{stem.value}</option>))}
                 <option>Display all</option>
             </select>
 

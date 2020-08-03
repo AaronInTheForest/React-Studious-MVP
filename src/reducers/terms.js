@@ -18,7 +18,6 @@ const termReducer = (state = [] , action) => {
         case 'REMOVETERM':
             return state.filter(el => el.id !== action.payload);
         default:
-            console.log('Invalid action.type passed to termReducer');
             return state;//must return the state or else Chrome Dev Tools fails to find the store...
     };
 };
