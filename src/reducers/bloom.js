@@ -1,7 +1,7 @@
 const bloom = [
     {
         id: 'c03b5101-b372-43ab-8201-d7ef1e380b4d',        
-        label: "Knowledge",
+        label: "Remember",
         level: 1,
         stems: [
             { id: "6da1ca79-05db-4040-97ed-177161085474", value: "What do you remember about *?"},
@@ -23,7 +23,7 @@ const bloom = [
     },
     {
         id: '06bb839f-5cca-499c-9e6e-bdd3374dfa4e',
-        label: "Comprehension",
+        label: "Understand",
         level: 2,
         stems: [
             { id: "f606206f-e581-4427-b1b5-053a4f381f3b", value: "How would you compare * with ^?"},
@@ -45,7 +45,7 @@ const bloom = [
     },
     {
         id: '26e00cf6-8259-44e6-87ea-934973a594c5',
-        label: "Application",
+        label: "Apply",
         level: 3,
         stems: [
             { id: "85def0f3-8b77-49cf-a106-80da2368c786", value: "What actions would you take to perform *?"},
@@ -65,7 +65,7 @@ const bloom = [
     },
     {
         id: 'c01e52f7-a913-441f-a0bc-c2e35e6b0d21',
-        label: "Analysis",
+        label: "Analyze",
         level: 4,
         stems: [
             { id: "ec4e6e37-803e-486f-9474-064f8ef06faf", value: "How can you classify * according to ^?"},
@@ -85,7 +85,7 @@ const bloom = [
     },
     {
         id: 'd9240862-a12b-41d9-9267-f25a6f4a7334',
-        label: "Evaluation",
+        label: "Evaluate",
         level: 5,
         stems: [
             { id: "6b6f32b9-b5b8-41ea-9365-8028dd04bf37", value: "What criteria would you use to assess *?"},
@@ -105,7 +105,7 @@ const bloom = [
     },
     {
         id: 'f4de4fe1-f1ae-45e4-9a14-6365dd4ece28',
-        label: "Synthesis",
+        label: "Create",
         level: 6,
         stems: [
             { id: "9b28362f-1afd-4bdc-b17a-00017024ed54", value: "What alternative would you suggest for *?"},
